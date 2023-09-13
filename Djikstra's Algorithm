@@ -79,7 +79,7 @@ Edge   Weight
 0 - 1    1
 1 - 2    2
 1 - 3    4
-he program starts by including necessary header files and defining some constants.
+The program starts by including necessary header files and defining some constants.
 minKey is a function that finds the vertex with the minimum key value among the vertices that are not yet included 
 in the MST.
 primMST is the main function responsible for finding and printing the MST. 
