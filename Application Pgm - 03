@@ -1,31 +1,84 @@
+Name:SHREYA ASHOKA
+EXECUTED DATE:30/08/2023
+Takes the number of nodes in the social network as input.
+Takes the adjacency matrix as input.
+Initializes an array visited to keep track of visited nodes.
+For each unvisited node, it calls the dfs function to perform a depth-first search traversal and print out the nodes in the connected component.
+The dfs function itself recursively traverses the network, marking nodes as visited and printing their values.
 #include <stdio.h>
+#include <stdbool.h>
 
 #define MAX_NODES 100
 
-void dfs(int node, int adjacency_matrix[MAX_NODES][MAX_NODES], int n, int visited[MAX_NODES], int component[MAX_NODES], int *component_size) {
-    visited[node] = 1;
-    component[(*component_size)++] = node;
-    
-    for (int neighbor = 0; neighbor < n; ++neighbor) {
-        if (adjacency_matrix[node][neighbor] && !visited[neighbor]) {
-            dfs(neighbor, adjacency_matrix, n, visited, component, component_size);
+// Function to perform Depth-First Search
+void dfs(int node, int n, bool visited[], int adjacencyMatrix[][MAX_NODES]) {
+    visited[node] = true;
+    printf("%d ", node);
+
+    for (int i = 0; i < n; i++) {
+        if (adjacencyMatrix[node][i] && !visited[i]) {
+            dfs(i, n, visited, adjacencyMatrix);
         }
     }
 }
 
-void find_connected_components(int adjacency_matrix[MAX_NODES][MAX_NODES], int n) {
-    int visited[MAX_NODES] = {0};
-    
-    for (int node = 0; node < n; ++node) {
-        if (!visited[node]) {
-            int component[MAX_NODES];
-            int component_size = 0;
-            dfs(node, adjacency_matrix, n, visited, component, &component_size);
-            
+// Function to find connected components using DFS
+void findConnectedComponents(int n, int adjacencyMatrix[][MAX_NODES]) {
+    bool visited[MAX_NODES] = {false};
+
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
             printf("Connected Component: ");
-            for (int i = 0; i < component_size; ++i) {
-                printf("%d ", component[i]);
-            }
+            dfs(i, n, visited, adjacencyMatrix);
+            printf("\n");
+        }
+    }
+}
+
+int main() {
+    int n; // Number of nodes in the graph
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    int adjacencyMatrix[MAX_NODES][MAX_NODES];
+    printf("Enter the adjacency matrix:\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &adjacencyMatrix[i][j]);
+        }
+    }
+
+    printf("Connected Components:\n");
+    findConnectedComponents(n, adjacencyMatrix);
+
+    return 0;
+}
+/......................................................
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_NODES 100
+
+// Function to perform Depth-First Search
+void DFS(int node, int n, bool visited[], int adjacencyMatrix[][MAX_NODES]) {
+    printf("%d ", node);
+    visited[node] = true;
+
+    for (int i = 0; i < n; i++) {
+        if (adjacencyMatrix[node][i] == 1 && !visited[i]) {
+            DFS(i, n, visited, adjacencyMatrix);
+        }
+    }
+}
+
+// Function to find connected components
+void findConnectedComponents(int n, int adjacencyMatrix[][MAX_NODES]) {
+    bool visited[MAX_NODES] = {false};
+
+    printf("Connected Components:\n");
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            DFS(i, n, visited, adjacencyMatrix);
             printf("\n");
         }
     }
@@ -33,18 +86,18 @@ void find_connected_components(int adjacency_matrix[MAX_NODES][MAX_NODES], int n
 
 int main() {
     int n;
-    printf("Enter the number of nodes: ");
+    printf("Enter the number of nodes in the social network: ");
     scanf("%d", &n);
-    
-    int adjacency_matrix[MAX_NODES][MAX_NODES];
+
+    int adjacencyMatrix[MAX_NODES][MAX_NODES];
     printf("Enter the adjacency matrix:\n");
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            scanf("%d", &adjacency_matrix[i][j]);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &adjacencyMatrix[i][j]);
         }
     }
-    
-    find_connected_components(adjacency_matrix, n);
-    
+
+    findConnectedComponents(n, adjacencyMatrix);
+
     return 0;
 }
