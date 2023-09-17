@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<string.h>
-#include<conio.h>
+//#include<conio.h>
 #define MAX 500
 int t[MAX];
 void shifttable(char p[]) {
@@ -29,17 +29,13 @@ int horspool(char src[],char p[]) {
 	return -1;
 }
 void main() {
-	char src[100],p[100];
-	int pos;
-	clrscr();
-	printf("Enter the text in which pattern is to be searched:\n");
-	gets(src);
-	printf("Enter the pattern to be searched:\n");
-	gets(p);
+	char src[100] = "This is a test text";
+	char p[100] = "test";
+	
 	shifttable(p);
 	pos=horspool(src,p);
 	if(pos>=0)
 	  printf("\n The desired pattern was found starting from position %d",pos+1); else
 	  printf("\n The pattern was not found in the given text\n");
-	getch();
+	
 }
